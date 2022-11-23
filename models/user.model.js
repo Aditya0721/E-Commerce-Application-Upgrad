@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
         default : "USER",
         enum : ["USER", "ADMIN"]
     },
-    phoneNumber :{
+    contactNumber :{
         type : String,
         required : true,
     }
