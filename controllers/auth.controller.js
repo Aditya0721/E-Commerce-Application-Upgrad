@@ -1,6 +1,6 @@
 const userModel = require("../models/user.model")
 const bcrypt = require("bcryptjs");
-const { response } = require("express");
+const jwt = require("jsonwebtoken")
 
 exports.signUp = async(req, res)=>{
 
@@ -12,7 +12,18 @@ exports.signUp = async(req, res)=>{
             email: req.body.email,
             contactNumber: req.body.contactNumber
         }
-        user.userId = "1"
+        const lastUserId = await userModel.find({},{_id:0, userId:1}).sort({_id:-1}).limit(1)
+        if(lastUserId.length==0){
+            user.userId = "U"+new Date().getFullYear()+"Id"+1
+        }
+        else{
+            console.log(lastUserId)
+            str = lastUserId[0].userId
+            count = str[str.length-1]
+            console.log(count)
+            user.userId = "U"+new Date().getFullYear()+"Id"+(++count)
+        }
+
         const responseObject = await userModel.create(user)
 
         return res.status(200).json({
@@ -28,4 +39,19 @@ exports.signUp = async(req, res)=>{
         })
     }
 }
+
+exports.signIn = async(req, res)=>{
+    
+    //jwt token
+    const token = jwt.sign({firstName:req.user.firstName, role:req.user.role, issuedAt: new Date()}, "SECRET SALT",{
+        expiresIn:600
+    })
+
+    return res.status(200).json({
+        email: req.body.email,
+        name: req.user.firstName,
+        isAuthenticated: true,
+        token: token
+    })
+} 
 
