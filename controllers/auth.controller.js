@@ -47,11 +47,12 @@ exports.signIn = async(req, res)=>{
         expiresIn:600
     })
 
-    return res.status(200).json({
+    res.setHeader("x-auth-token", token)
+
+    res.status(200).json({
         email: req.body.email,
         name: req.user.firstName,
-        isAuthenticated: true,
-        token: token
+        isAuthenticated: true
     })
 } 
 
