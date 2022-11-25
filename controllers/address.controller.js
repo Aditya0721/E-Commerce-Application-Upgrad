@@ -24,7 +24,7 @@ exports.createAddress = async (req, res)=>{
         }
         else{
             str = lastAddress[0].addressId
-            count = str[str.length-1]
+            count = str.split("Id")[1]
             console.log(count)
             address.addressId = "AD"+new Date().getFullYear()+"Id"+(++count)
         }
@@ -46,7 +46,7 @@ exports.createAddress = async (req, res)=>{
         }
         console.log(responseObject)
 
-        return res.status(200).json({
+        return res.status(200).send({
             data: responseObject,
             message: "address added Successfully"
         })
@@ -55,7 +55,7 @@ exports.createAddress = async (req, res)=>{
     catch(err){
         console.log(err)
         return res.status(400).send({
-            err
+            err:err
         })
     }
 }

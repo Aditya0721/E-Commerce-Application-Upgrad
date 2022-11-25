@@ -8,7 +8,7 @@ exports.verifyToken = (req, res, next)=>{
 
     if(!token){
         res.status(403).json({
-            error:"Token Not Found"
+            error:"Please login first to access this endpoint!"
         })
     }
 
@@ -18,9 +18,7 @@ exports.verifyToken = (req, res, next)=>{
                 error:"Unauthorized"
             })
         }
-        console.log(decoded)
         req.email = decoded.email
-        console.log(req.email)
     })
     next()
 }
