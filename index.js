@@ -1,6 +1,5 @@
 const express = require("express")
 const mongoose = require("mongoose")
-const userModel = require("./models/user.model")
 const routes = require("./routes/index.routes")
 
 const app = express()
