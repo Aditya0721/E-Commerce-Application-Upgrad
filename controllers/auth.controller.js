@@ -43,8 +43,8 @@ exports.signUp = async(req, res)=>{
 exports.signIn = async(req, res)=>{
     
     //jwt token
-    const token = jwt.sign({firstName:req.user.firstName, role:req.user.role, issuedAt: new Date()}, "SECRET SALT",{
-        expiresIn:600
+    const token = jwt.sign({email:req.user.email, role:req.user.role, issuedAt: new Date()}, "SECRET SALT",{
+        expiresIn:36000
     })
 
     res.setHeader("x-auth-token", token)

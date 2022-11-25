@@ -25,6 +25,13 @@ exports.validateUserReqBody = async(req, res, next)=>{
     if(!/^([1-9]{1}[0-9]{9})$/.test(req.body.contactNumber)){
         return res.status(400).send("Invalid contactNumber")
     }
+
+    // If the contact number already exists
+    const contactNumber = await userModel.findOne({contactNumber:req.body.contactNumber})
+    if(contactNumber){
+        return res.status(400).send("contactNumber already exists")
+    }
+   
     next()
 
 }
