@@ -4,7 +4,7 @@ const userModel = require("../models/user.model")
 exports.verifyToken = (req, res, next)=>{
 
     const token = req.header("x-auth-token") 
-    console.log(token)
+    // console.log(token)
 
     if(!token){
         return res.status(403).json({
