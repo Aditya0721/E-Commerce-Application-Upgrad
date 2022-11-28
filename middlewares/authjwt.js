@@ -32,3 +32,12 @@ exports.verifyAdmin = (req, res, next) => {
 
     next()
 }
+
+exports.verifyUser = (req, res, next) => {
+    
+    if(req.role !== "USER"){
+        return res.status(401).json("You are not authorised to access this endpoint!")
+    }
+
+    next()
+}

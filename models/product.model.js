@@ -31,20 +31,10 @@ const productSchema = new mongoose.Schema({
     price : {
         type : Number,
         required : true
-    },
-    createdAt : {
-        type : Date,
-        immutable  : true,
-        default : ()=>{
-            return Date.now();
-        }
-    },
-    updatedAt : {
-        type : Date,
-        default : ()=>{
-            return Date.now();
-        } 
     }
+},
+{
+    timestamps: true
 })
 
 module.exports = mongoose.model("products", productSchema)

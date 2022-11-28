@@ -26,19 +26,6 @@ const userSchema = new mongoose.Schema({
         lowercase : true,
         minLength : 10
     },
-    createdAt : {
-        type : Date,
-        immutable  : true,
-        default : ()=>{
-            return Date.now();
-        }
-    },
-    updatedAt : {
-        type : Date,
-        default : ()=>{
-            return Date.now();
-        } 
-    },
     role : {
         type : String,
         required : true,
@@ -50,6 +37,9 @@ const userSchema = new mongoose.Schema({
         required : true,
         unique: true
     }
+},
+{
+    timestamps: true
 })
 
 module.exports = mongoose.model("users", userSchema)

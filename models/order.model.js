@@ -24,23 +24,13 @@ const orderSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    createdAt : {
-        type : Date,
-        immutable  : true,
-        default : ()=>{
-            return Date.now();
-        }
-    },
-    updatedAt : {
-        type : Date,
-        default : ()=>{
-            return Date.now();
-        } 
-    },
     userId : {
         type : String,
         required : true
     }
+},
+{
+    timestamps: true
 })
 
 module.exports = mongoose.model("orders", orderSchema)

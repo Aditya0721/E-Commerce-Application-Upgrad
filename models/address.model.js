@@ -17,19 +17,6 @@ const addressSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    createdAt : {
-        type : Date,
-        immutable  : true,
-        default : ()=>{
-            return Date.now();
-        }
-    },
-    updatedAt : {
-        type : Date,
-        default : ()=>{
-            return Date.now();
-        } 
-    },
     state : {
         type : String,
         required : true
@@ -50,6 +37,9 @@ const addressSchema = new mongoose.Schema({
         type : String,
         required : true
     }
+},
+{
+    timestamps: true
 })
 
 module.exports = mongoose.model("addresses", addressSchema)
