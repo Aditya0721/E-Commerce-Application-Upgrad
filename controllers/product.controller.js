@@ -71,7 +71,7 @@ exports.fetchCategories = async(req, res)=>{
 }
 
 exports.fetchById = async(req, res)=>{
-    
+
     try{
         const result = await productModel.find({productId: req.params.id},{_id:0, __v:0})
         
@@ -85,6 +85,43 @@ exports.fetchById = async(req, res)=>{
     catch(err){
         return res.status(500).json({
             error: "Internal Error"
+        })
+    }
+}
+
+exports.addProduct = async(req, res) => {
+    try{
+        const product = {
+            name: req.body.name,
+            category: req.body.category,
+            price: req.body.price,
+            description: req.body.description,
+            manufacturer: req.body.manufacturer,
+            availableItems: req.body.availableItems,
+            imageUrl: req.body.imageUrl
+        }
+
+        const lastProduct = await productModel.find({},{_id:0, productId:1}).sort({_id:-1}).limit(1)
+
+        if(lastProduct.length==0){
+            product.productId = 1
+        }
+        else{
+            product.productId = ++lastProduct[0].productId
+        }
+
+        const productCreated = await productModel.create(product)
+
+        return res.status(200).send({
+            data: productCreated,
+            message: "product added Successfully"
+        })
+    }
+
+    catch(err){
+        console.log(err)
+        return res.status(400).send({
+            err:err
         })
     }
 }

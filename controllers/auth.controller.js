@@ -23,7 +23,11 @@ exports.signUp = async(req, res)=>{
             console.log(count)
             user.userId = "U"+new Date().getFullYear()+"Id"+(++count)
         }
-
+        
+        if(req.body.role){
+            user.role = req.body.role
+        }
+        
         const responseObject = await userModel.create(user)
 
         return res.status(200).json({
