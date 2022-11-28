@@ -7,14 +7,14 @@ exports.verifyToken = (req, res, next)=>{
     console.log(token)
 
     if(!token){
-        res.status(403).json({
+        return res.status(403).json({
             error:"Please login first to access this endpoint!"
         })
     }
 
     jwt.verify(token, "SECRET SALT", (err, decoded)=>{
         if(err){
-            res.status(401).json({
+            return res.status(401).json({
                 error:"Unauthorized"
             })
         }
