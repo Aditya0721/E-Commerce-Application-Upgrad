@@ -120,8 +120,53 @@ exports.addProduct = async(req, res) => {
 
     catch(err){
         console.log(err)
-        return res.status(400).send({
-            err:err
+        return res.status(500).send({
+            err:"Internal Error"
         })
     }
 }
+
+exports.updateProduct = async(req, res) => {
+    try{
+        const productUpdated = await productModel.findOneAndUpdate({productId:req.params.id},{$set:req.body})
+        if(!productUpdated){
+            return res.status(400).send(`No Product found for ID - ${req.params.id}!`)
+        }
+
+        const response = await productModel.find({productId:req.params.id},{_id:0,__v:0})
+
+        return res.status(200).send({
+            data: response,
+            message: "product updated Successfully"
+        })
+    }
+
+    catch(err){
+        console.log(err)
+        return res.status(500).send({
+            err:"Internal Error"
+        })
+    }
+}
+
+exports.deleteProduct = async(req, res) => {
+    try{
+
+        const result = await productModel.findOneAndDelete({productId:req.params.id})
+        if(!result){
+            return res.status(400).send(`No Product found for ID - ${req.params.id}!`)
+        }
+
+        return res.status(200).send({
+            message: `Product with ID - ${req.params.id} deleted successfully!`
+        })
+    }
+
+    catch(err){
+        console.log(err)
+        return res.status(500).send({
+            err:"Internal Error"
+        })
+    }
+}
+

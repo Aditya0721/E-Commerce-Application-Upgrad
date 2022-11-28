@@ -27,7 +27,7 @@ exports.signUp = async(req, res)=>{
         if(req.body.role){
             user.role = req.body.role
         }
-        
+
         const responseObject = await userModel.create(user)
 
         return res.status(200).json({
@@ -38,7 +38,7 @@ exports.signUp = async(req, res)=>{
 
     catch(err){
         console.log(err)
-        return res.status(400).send({
+        return res.status(500).send({
             err
         })
     }

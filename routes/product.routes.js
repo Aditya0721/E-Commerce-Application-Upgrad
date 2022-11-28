@@ -16,4 +16,10 @@ productRouter.get("/:id", productController.fetchById)
 //Save Product - '/products'
 productRouter.post("",[authjwt.verifyToken, authjwt.verifyAdmin], productController.addProduct)
 
+// Update Product Details- '/products/{id}'
+productRouter.put("/:id",[authjwt.verifyToken, authjwt.verifyAdmin], productController.updateProduct)
+
+//  Delete Product '/products/{id}'
+productRouter.delete("/:id",[authjwt.verifyToken, authjwt.verifyAdmin], productController.deleteProduct)
+
 module.exports = productRouter
