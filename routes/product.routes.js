@@ -9,4 +9,7 @@ productRouter.get("", productController.fetchProducts)
 // Get Product Categories - '/products/categories'
 productRouter.get("/categories", productController.fetchCategories)
 
+// Get Product by Product ID - '/products/{id}'
+productRouter.get("/:id", productController.fetchById)
+
 module.exports = productRouter

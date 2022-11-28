@@ -69,3 +69,22 @@ exports.fetchCategories = async(req, res)=>{
     }
 
 }
+
+exports.fetchById = async(req, res)=>{
+    
+    try{
+        const result = await productModel.find({productId: req.params.id},{_id:0, __v:0})
+        
+        if(result.length===0){
+            return res.status(400).send({message:`No Product found for ID - ${req.params.id}!`})
+        }
+
+        return res.status(200).json(result)
+    } 
+    
+    catch(err){
+        return res.status(500).json({
+            error: "Internal Error"
+        })
+    }
+}
